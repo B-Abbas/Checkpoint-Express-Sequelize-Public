@@ -48,6 +48,6 @@ module.exports = {
 
   remove: function (name, idx) {
     // removes a tasks
-    tasks[name].splice(idx, 1)
+    tasks[name].splice(idx, 1);
   },
 };

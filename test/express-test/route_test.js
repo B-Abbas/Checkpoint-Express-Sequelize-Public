@@ -10,7 +10,7 @@ describe('Todo routes', function () {
   });
 
   describe('`/users` URI', function () {
-    xit('GET responds with an empty array at first', function () {
+    it('GET responds with an empty array at first', function () {
       // when we make requests to `/users` we will get back an empty array
       return supertest // supertest object lets us make & test HTTP req/res
         .get('/users') // makes an HTTP request: GET '/users'
@@ -21,7 +21,7 @@ describe('Todo routes', function () {
         });
     });
 
-    xit('GET responds with a person after a task has been added', function () {
+    it('GET responds with a person after a task has been added', function () {
       todos.add('zeke', { content: 'a task' });
       return supertest
         .get('/users')
@@ -32,7 +32,7 @@ describe('Todo routes', function () {
         });
     });
 
-    xit('GET responds with everyone who has tasks', function () {
+    it('GET responds with everyone who has tasks', function () {
       todos.add('zeke', { content: 'a task' });
       todos.add('omri', { content: 'some other task' });
       todos.add('gabe', { content: 'yet more tasks' });
