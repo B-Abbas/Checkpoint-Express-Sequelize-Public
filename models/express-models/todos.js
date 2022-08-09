@@ -24,10 +24,11 @@ module.exports = {
 
   add: function (name, task) {
     // saves a task for a given person
+    const formattedTask = 'complete' in task ? task : {...task, 'complete': false};
     if (tasks[name]) {
-      tasks[name].push(task)
+      tasks[name].push(formattedTask);
     } else {
-      tasks[name] = [task]
+      tasks[name] = [formattedTask];
     }
   },
 
@@ -38,9 +39,15 @@ module.exports = {
 
   complete: function (name, idx) {
     // marks a task complete
+    tasks[name].forEach((task, i) => {
+      if (i === idx || (task.complete === true)) {
+        task.complete = true;
+      }
+    })
   },
 
   remove: function (name, idx) {
     // removes a tasks
+    tasks[name].splice(idx, 1)
   },
 };

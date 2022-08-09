@@ -64,7 +64,7 @@ describe('Todo model', function () {
   });
 
   describe('`remove`', function () {
-    xit('removes a task, by index, for a given person', function () {
+    it('removes a task, by index, for a given person', function () {
       // set up a bunch of tasks
       for (let i = 0; i < 10; i++) Todos.add('zeke', { content: 'task ' + i });
       expect(Todos.list('zeke').length).to.equal(10);
