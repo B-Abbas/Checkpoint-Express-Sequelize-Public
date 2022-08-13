@@ -81,6 +81,14 @@ Owner.prototype.getIncompleteTasks = async function() {
   return incompleteTasks
 }
 
+Owner.beforeDestroy((instance) => {
+    if (instance.name === 'Grace Hopper') {
+      throw new Error("Cannot delete that!");
+    }
+})
+
+
+
 //---------^^^---------  your code above  ---------^^^----------
 
 module.exports = {
