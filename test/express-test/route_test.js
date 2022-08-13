@@ -116,7 +116,7 @@ describe('Todo routes', function () {
     });
 
     describe('`/:index` URI', function () {
-      xit('PUT marks a specific task as complete', function () {
+      it('PUT marks a specific task as complete', function () {
         todos.add('nimit', { content: 't0' });
         todos.add('nimit', { content: 't1' });
         todos.add('nimit', { content: 't2' });
@@ -131,7 +131,7 @@ describe('Todo routes', function () {
           });
       });
 
-      xit('DELETE removes a specific task', function () {
+      it('DELETE removes a specific task', function () {
         todos.add('david', { content: 'interview fellows' });
         todos.add('david', { content: 'judge stackathon' });
         todos.add('david', { content: 'code review' });
@@ -156,7 +156,7 @@ describe('Todo routes', function () {
         todos.add('billy', { content: 'enable requests for specific todos' });
       });
 
-      xit('GET can get just the completed tasks', function () {
+      it('GET can get just the completed tasks', function () {
         return supertest
           .get('/users/billy/tasks?status=complete')
           .expect(200)
@@ -167,7 +167,7 @@ describe('Todo routes', function () {
           });
       });
 
-      xit('GET can get just the active (incomplete) tasks', function () {
+      it('GET can get just the active (incomplete) tasks', function () {
         return supertest
           .get('/users/billy/tasks?status=active')
           .expect(200)

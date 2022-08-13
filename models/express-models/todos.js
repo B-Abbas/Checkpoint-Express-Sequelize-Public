@@ -38,12 +38,7 @@ module.exports = {
   },
 
   complete: function (name, idx) {
-    // marks a task complete
-    tasks[name].forEach((task, i) => {
-      if (i === idx || (task.complete === true)) {
-        task.complete = true;
-      }
-    })
+    tasks[name][idx].complete = true
   },
 
   remove: function (name, idx) {

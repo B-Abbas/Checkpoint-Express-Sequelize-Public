@@ -21,7 +21,15 @@ router.get("/", (req, res, next) => {
 router.get("/:name/tasks", (req, res, next) => {
   const personName = req.params.name;
   try {
-    if (!todos.listPeople().includes(personName)) {
+    if (req.query.status) {
+      if (req.query.status === 'complete') {
+        const completed = todos.list(personName).filter(t => (t.complete))
+        res.status(200).send(completed)
+      } else if (req.query.status === 'active') {
+        const active = todos.list(personName).filter(t => !(t.complete))
+        res.status(200).send(active)
+      }
+    } else if (!todos.listPeople().includes(personName)) {
       res.status(404)
     } else {
       let toSend = todos.list(personName);
@@ -33,17 +41,20 @@ router.get("/:name/tasks", (req, res, next) => {
 })
 
 router.post("/:name/tasks", (req, res, next) => {
-  const personName = req.params.name
   try {
-    if (req.body.content) {
-      todos.add(personName, req.body)
-      res.status(201).send(todos.list(personName)[0])
-    } else {
-      res.status(400).send("Bad Request")
-    }
-  } catch (err) {
-    next (err)
+  const personName = req.params.name
+  const task = req.body
+  // if (!(personName in todos.listPeople())) res.status(404).send("Not Found")
+  if (task.content) {
+    todos.add(personName, task)
+    const newTask = todos.list(personName, task)[0]
+    res.status(201).send(newTask)
+  } else {
+    res.status(400).send("No Content Found")
   }
+ } catch(err) {
+  // console.log('error: ', err)
+ }
 })
 
 router.use((err, req, res, next) => {
@@ -51,17 +62,16 @@ router.use((err, req, res, next) => {
   res.status(404).send("Not Found")
 })
 
-// router.put(":name/tasks/:index", (req, res, next) => {
-//   console.log("PUT FUNCTION****")
+router.put("/:name/tasks/:index", (req, res, next) => {
+  const userName = req.params.name
+  const idx = req.params.index
+  todos.complete(userName, idx)
+  res.status(200).send(`Todos for ${userName} updated`)
+})
 
-//   const idx = req.params.index
-//   const name = req.params.name
-//   console.log("TESTING", idx, name)
-//   res.status(500).send("AJDKASJDA")
-// })
-
-// router.delete("users/:name/tasks/:index", (req, res, next) => {
-//   const name = req.params.name;
-//   const idx = req.params.index;
-//   res.status(200).send(todos.remove(name, idx))
-// })
+router.delete("/:name/tasks/:index", (req, res, next) => {
+  const name = req.params.name;
+  const idx = req.params.index;
+  todos.remove(name, idx)
+  res.status(204).send('test')
+})
