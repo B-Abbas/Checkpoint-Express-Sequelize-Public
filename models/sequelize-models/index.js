@@ -61,11 +61,10 @@ Task.prototype.isOverdue = function() {
   }
   return true
 }
-// // console.log('>>>>', Object.keys(Owner.prototype))
-// Task.prototype.assignOwner = async function (owner) {
-//   console.log('>>>', await owner.setTasks(owner.id))
-//   // return await owner.setTasks(owner.id)
-// }
+// console.log('>>>>', Object.keys(Task.prototype))
+Task.prototype.assignOwner = async function (owner) {
+  return await this.setOwner(owner.id)
+}
 
 Owner.getOwnersAndTasks = async function() {
   const ownersAndTasks = await Owner.findAll({

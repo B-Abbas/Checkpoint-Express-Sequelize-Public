@@ -44,8 +44,9 @@ router.post("/:name/tasks", (req, res, next) => {
   try {
   const personName = req.params.name
   const task = req.body
-  // if (!(personName in todos.listPeople())) res.status(404).send("Not Found")
   if (task.content) {
+    // this next line causes the specs to time out -- tried a few other approaches too and not sure how to fix
+    // if (!(personName in todos.listPeople())) res.status(404).send("Not Found")
     todos.add(personName, task)
     const newTask = todos.list(personName, task)[0]
     res.status(201).send(newTask)
@@ -57,10 +58,10 @@ router.post("/:name/tasks", (req, res, next) => {
  }
 })
 
-router.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(404).send("Not Found")
-})
+// router.use((err, req, res, next) => { // custom error handler attempt
+//   console.error(err.stack)
+//   res.status(404).send("Not Found")
+// })
 
 router.put("/:name/tasks/:index", (req, res, next) => {
   const userName = req.params.name
